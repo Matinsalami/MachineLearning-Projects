@@ -105,7 +105,6 @@ Last step taken is combining again the numerical and categorical data. Here agai
 ## a. Data Cleaning
 
 Reffering to the dataset, We can see we have two attributes that have some missing values. We should take care of them. We use `SimpleImputer` function of sicket_learn. It fills all the missing values with a desired value. In this case we use the median of each column. 
-
 ## b. Handling Text and Categorical Attributes
 
 Now it is time to take care of `"ocaen_proximity"` attribute. The problem is that this attribute is categorical and as most Machine Learning algorithms prefer to work with numbers, we will try to convert it to a numerical attribute somehow. sicket_learn provides a great tool called `OneHotEncoder` which creates a binary attribute per category. One attribute equals 1 while all others equal 0. 
@@ -122,6 +121,18 @@ Here I used the `ColumnTransformer` class to have a pipeline taking care of all 
 
 # 5. Select and Train a Model
 
+Finally we are ready to test different models on out dataset
+
+## a. Training and Evaluating on the Training Set
+
+first we train a Linear Regression model. Then evaluate it with mean_squared_error. The mean squared error provided represent almost 58,000 dolors which is not a good result. The problem could be underfitting or just the model is not powerful enough for this purpose. I tried another model. This time DecisionTree
+
+Using DecisionTree we observe the mean square value equals 0! Of course there is a problem because the model cannot be perfect. We now have overfitting the model.
+As we do not want to touch the test set. We again split the train_set. One part for training and another for model validation. 
+
+## b. Better Evaluation using Cross-Validation
+
+I use K-fold cross-valiadation feature of sklearn to randomly split the training set into 10 parts and it will train the model 1 time on 1 fold and train all other folds. The result is an array containing the 10 evaluation scores.
 
 
 
