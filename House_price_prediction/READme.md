@@ -63,7 +63,7 @@ The other one is more specific and is more suitable for the data to be a represe
 In the case of this project we want to make sure the test set is representative of the variuos categories of incomes. We use `cut()` method in numpy to cut the incomes in 5 different intervals and label them. Then we use `StratifiedshuffleSplit` classs to split the dataset. 
 
 -----------------------------------------------------------------------------------------
-.# 3. Discover and Visualize the Data to Gain Insights
+# 3. Discover and Visualize the Data to Gain Insights
 
 Now that we splitted the data. We set aside the test set and work on train set solely. 
 
@@ -93,6 +93,37 @@ The number of quirks in the house value is 900 rows which is a huge number. Howe
 
 One last thing to do is to try out various attribute combinations. For example the total number of rooms in a district is not important if you do not know how many households are living there. Also the number of bedrooms is not important. You should compare it with the number of rooms. And finally we will consider population per household.
 In the correlation matrix we can see that the new attributes are much more related to the median house value compared to the original values.
+
+----------------------------------------------------------------------------
+
+# 4. Prepare the Data for Machine Learning Algorithms
+
+It is time to split the predictors and labels. First I split the data to numerical and categorical data. What is done here is done in basically 4 parts. Let me break them down. I use a pipeline transformer for all the numerical attributs. I use 3 transformers for numerical data. First one which is already created is called `CombinedAttributeAdder` and is used to make new attributes which are more related to median_house_value. Second one is `SimpleImputer` which is used to fill the missing gaps with the median of each column. Finally, third one is `StandarScalar` which is used for feature scaling.
+Also there is one transformer for categorical data and it is `OneHotEncoder` and is used to turn the categorical data into numerical one. 
+Last step taken is combining again the numerical and categorical data. Here again we use  
+
+## a. Data Cleaning
+
+Reffering to the dataset, We can see we have two attributes that have some missing values. We should take care of them. We use `SimpleImputer` function of sicket_learn. It fills all the missing values with a desired value. In this case we use the median of each column. 
+
+## b. Handling Text and Categorical Attributes
+
+Now it is time to take care of `"ocaen_proximity"` attribute. The problem is that this attribute is categorical and as most Machine Learning algorithms prefer to work with numbers, we will try to convert it to a numerical attribute somehow. sicket_learn provides a great tool called `OneHotEncoder` which creates a binary attribute per category. One attribute equals 1 while all others equal 0. 
+
+## c. Feature scaling
+
+The last transformer we are working with is used for standardization of the data. The transformer used is `StandardScalar`
+
+## d. Final transformation pipeline
+
+Here I used the `ColumnTransformer` class to have a pipeline taking care of all the data preparing for numerical and categorical data.
+
+--------------------------------------------------------------------------------
+
+# 5. Select and Train a Model
+
+
+
 
 
 
