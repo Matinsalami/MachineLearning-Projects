@@ -132,7 +132,33 @@ As we do not want to touch the test set. We again split the train_set. One part 
 
 ## b. Better Evaluation using Cross-Validation
 
-I use K-fold cross-valiadation feature of sklearn to randomly split the training set into 10 parts and it will train the model 1 time on 1 fold and train all other folds. The result is an array containing the 10 evaluation scores.
+I use K-fold cross-valiadation feature of sklearn to randomly split the training set into 10 parts and it will evaluate the model 1 time on 1 fold and train all 9 other folds. The result is an array containing the 10 evaluation scores.
+
+I used 3 models. Linear Regression, RandomForest Regression and Decision tree regression. The latter gave me much better results. However we are in danger of overfitting the train_set but we can check if we actually overfitted the data. Now it is time to Fine-tune the model!
+
+----------------------------------------------------------------------------------------
+
+# 6. Fine-Tune Your Model
+
+## a. Grid Search
+
+Now it is time to find a good combination of hyperparameters. We use `GridSearchCV` by sicekt-learn for this purpose. The only thing to do is to give different values you want to have as hyperparameters and `GridSearchCV` will find you the best one
+
+For RandomForest I selected 3 hyperparameters to tune. I tried different values for each and finally grid_search gave me the best combination. 
+
+## b. Randomized Search and Ensemble methods
+
+The Grid search is fine when you are exploring a few combinations, if hyperparameter space is large, `RandomizedSearch` is used instead. You have more control over the hyperparameter search, simply by setting the number of iterations. Another way to fine-tune the model is using Ensemble the models.
+
+## c. Analyze the Best Models and their Errors
+
+Now it is time to find which features were more important the others. For this purpose we use the `feature_importance` of the estimator. As seen `median_income` was the most important one and `ISLAND` attribute which is related to ocean_proximity is the least related feature. We can remove the least important feature to better tune our model.
+
+## Evaluate Your system on the Test Set
+
+Now it is time to test our final model on the `Test_set`. The results are not that good as anticipated. But we have a model with R2-score of almost 80%.
+
+
 
 
 
